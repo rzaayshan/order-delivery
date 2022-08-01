@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: add foreign key on COURIERS table for users
+      author: Ayshan Rzayeva
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: COURIERS
+            constraintName: fk_user_id
+            referencedColumnNames: id
+            referencedTableName: USERS
+            referencedTableSchemaName: public

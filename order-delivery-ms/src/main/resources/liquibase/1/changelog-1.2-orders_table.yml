@@ -1,0 +1,74 @@
+databaseChangeLog:
+  - changeSet:
+      id: create ORDERS table
+      author: Ayshan Rzayeva
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: number
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: status
+                  type: varchar(20)
+              - column:
+                  name: delivery_address
+                  type: varchar(255)
+              - column:
+                  name: delivery_date
+                  type: date
+              - column:
+                  name: created_date
+                  type: date
+              - column:
+                  name: customer_user_id
+                  type: number
+              - column:
+                  name: courier_user_id
+                  type: number
+            schemaName: public
+            tableName: ORDERS
+
+  - changeSet:
+      id: add foreign key on ORDERS table for CUSTOMERS
+      author: Ayshan Rzayeva
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: customer_user_id
+            baseTableName: ORDERS
+            constraintName: fk_customer_id
+            referencedColumnNames: user_id
+            referencedTableName: CUSTOMERS
+            referencedTableSchemaName: public
+
+  - changeSet:
+      id: add foreign key on ORDERS table for couriers
+      author: Ayshan Rzayeva
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: courier_user_id
+            baseTableName: ORDERS
+            constraintName: fk_courier_id
+            referencedColumnNames: user_id
+            referencedTableName: COURIERS
+            referencedTableSchemaName: public
+
+
+  - changeSet:
+      id: create ORDERS sequence
+      author: Ayshan Rzayeva
+      changes:
+        - createSequence:
+            minValue: 1
+            cycle: true
+            maxValue: 9999999
+            sequenceName: sqs_orders
+            schemaName: public
+            incrementBy: 1
+            startValue: 1

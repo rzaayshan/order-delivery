@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: create CUSTOMERS table
+      author: Ayshan Rzayeva
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: number
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: card_number
+                  type: varchar(20)
+              - column:
+                  name: address
+                  type: varchar(255)
+              - column:
+                  name: user_id
+                  type: number
+            schemaName: public
+            tableName: CUSTOMERS
+
+
+  - changeSet:
+      id: create CUSTOMERS sequence
+      author: Ayshan Rzayeva
+      changes:
+        - createSequence:
+            minValue: 1
+            cycle: true
+            maxValue: 9999999
+            sequenceName: sqs_customers
+            schemaName: public
+            incrementBy: 1
+            startValue: 1
+
+  - changeSet:
+      id: Add unique constraint for user_id on customers table
+      author: Ayshan Rzayeva
+      changes:
+        - addUniqueConstraint:
+            columnNames: user_id
+            constraintName: unique_customer_user_id
+            schemaName: public
+            tableName: CUSTOMERS
+
+
+
+
+
